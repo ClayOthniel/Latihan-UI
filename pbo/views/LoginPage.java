@@ -17,7 +17,7 @@ import pbo.views.components.TextBox;
 public class LoginPage extends JPanel {
 
     public LoginPage(JFrame parent) {
-        // Menggunakan GridBagLayout agar form login otomatis berada di tengah layar
+        // Menggunakan GridBagLayout agar form login berada di tengah halaman
         this.setLayout(new GridBagLayout());
 
         JPanel loginForm = new JPanel();
@@ -34,13 +34,13 @@ public class LoginPage extends JPanel {
         JButton btnLogin = new JButton("Login");
         btnLogin.setAlignmentX(CENTER_ALIGNMENT);
 
-        // Aksi Tombol Login
+
         btnLogin.addActionListener(e -> {
             String username = txtUsername.getText();
             String password = txtPassword.getText();
 
-            // Hardcoded Credentials
-            if (username.equals("admin") && password.equals("admin123")) {
+            // Hardcode login
+            if (username.equals("Clay") && password.equals("123")) {
                 lblError.setText(" ");
                 // Pindah ke Halaman Tabel Mahasiswa
                 CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
@@ -50,7 +50,6 @@ public class LoginPage extends JPanel {
             }
         });
 
-        // Susun komponen ke dalam form
         loginForm.add(txtUsername);
         loginForm.add(Box.createRigidArea(new Dimension(0, 10)));
         loginForm.add(txtPassword);

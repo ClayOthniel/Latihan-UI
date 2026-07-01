@@ -21,7 +21,7 @@ public class FormMahasiswaDialog extends JDialog {
     private boolean saved = false;
     private Mahasiswa mahasiswaData;
 
-    // Jika objek mhs null -> Mode Tambah. Jika ada stands -> Mode Edit
+
     public FormMahasiswaDialog(JFrame parent, String title, Mahasiswa mhs) {
         super(parent, title, true);
         this.setSize(300, 300);
@@ -47,7 +47,6 @@ public class FormMahasiswaDialog extends JDialog {
         formPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         formPanel.add(lblError);
 
-        // Jika mode edit, pasang data lama ke field
         if (mhs != null) {
             txtNim.setText(mhs.getNim());
             txtNama.setText(mhs.getNama());

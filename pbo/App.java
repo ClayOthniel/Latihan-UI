@@ -33,7 +33,6 @@ public class App {
         JFrame frame = new JFrame(appName);
 
         // components add here
-        // frame.add(mahasiswaListPage);
         AppNavigation navigation = new AppNavigation(frame);
         frame.setLayout(navigation);
 

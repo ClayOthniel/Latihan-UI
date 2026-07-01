@@ -25,13 +25,13 @@ public class MahasiswaListPage extends JPanel {
     public MahasiswaListPage(JFrame parent) {
         this.setLayout(new BorderLayout());
 
-        // 1. Inisialisasi Data Hardcode Awal
+        // dummy data
         listMahasiswa = new ArrayList<>();
         listMahasiswa.add(new Mahasiswa("12345", "Budi Santoso", "budi@gmail.com"));
         listMahasiswa.add(new Mahasiswa("67890", "Siti Aminah", "siti@yahoo.com"));
         listMahasiswa.add(new Mahasiswa("11223", "Andi Wijaya", "andi@gmail.com"));
 
-        // 2. Panel Atas: Search Bar & Tombol Tambah
+        // Search Bar & Tombol Tambah
         JPanel topPanel = new JPanel(new BorderLayout());
         
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -51,7 +51,7 @@ public class MahasiswaListPage extends JPanel {
         topPanel.add(searchPanel, BorderLayout.WEST);
         topPanel.add(actionPanel, BorderLayout.EAST);
 
-        // 3. Konfigurasi JTable
+        // JTable
         String[] columns = {"NIM", "Nama", "Email"};
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
@@ -62,19 +62,16 @@ public class MahasiswaListPage extends JPanel {
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         
-        // Load data pertama kali
         refreshTable(listMahasiswa);
 
-        // 4. Panel Bawah: Tombol Aksi Row (Edit & Delete)
+        // edit & delete
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnEdit = new JButton("Edit Terpilih");
         JButton btnDelete = new JButton("Delete Terpilih");
         bottomPanel.add(btnEdit);
         bottomPanel.add(btnDelete);
-
-        // --- Action Listeners ---
         
-        // Filter Pencarian (NIM, Nama, atau Email)
+        // Filter
         btnSearch.addActionListener(e -> {
             String keyword = txtSearch.getText().toLowerCase().trim();
             List<Mahasiswa> filteredList = new ArrayList<>();
@@ -88,13 +85,13 @@ public class MahasiswaListPage extends JPanel {
             refreshTable(filteredList);
         });
 
-        // Reset Pencarian
+        // Reset
         btnReset.addActionListener(e -> {
             txtSearch.setText("");
             refreshTable(listMahasiswa);
         });
 
-        // Buka Form Tambah
+        // tambah
         btnTambah.addActionListener(e -> {
             FormMahasiswaDialog form = new FormMahasiswaDialog(parent, "Form Tambah Mahasiswa", null);
             if (form.isSaved()) {
@@ -103,7 +100,7 @@ public class MahasiswaListPage extends JPanel {
             }
         });
 
-        // Buka Form Edit
+        // edit
         btnEdit.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow == -1) {
@@ -111,7 +108,7 @@ public class MahasiswaListPage extends JPanel {
                 return;
             }
             
-            // Ambil data asli berdasarkan NIM yang tertera di baris terpilih
+            // nim
             String selectedNim = (String) tableModel.getValueAt(selectedRow, 0);
             Mahasiswa targetMhs = null;
             for (Mahasiswa m : listMahasiswa) {
@@ -133,7 +130,7 @@ public class MahasiswaListPage extends JPanel {
             }
         });
 
-        // Aksi Hapus data dengan Konfirmasi
+        // hapus
         btnDelete.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow == -1) {
@@ -150,13 +147,12 @@ public class MahasiswaListPage extends JPanel {
             }
         });
 
-        // Penyusunan Layout Utama Halaman
+        // Layout Utama
         this.add(topPanel, BorderLayout.NORTH);
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    // Fungsi helper untuk merender ulang tabel
     private void refreshTable(List<Mahasiswa> dataList) {
         tableModel.setRowCount(0); // Kosongkan tabel
         for (Mahasiswa m : dataList) {
